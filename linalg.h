@@ -31,6 +31,7 @@ typedef struct cla##V##dim##type##_t { \
     LINALG_DATA_TYPE_##type v[dim]; \
 } cla##V##dim##type##_t; \
 LINALG_EXPORT cla##V##dim##type##_t cla##V##dim##type##_map( LINALG_DATA_TYPE_##type * p ); \
+LINALG_EXPORT void cla##V##dim##type##_rmap( cla##V##dim##type##_t v, LINALG_DATA_TYPE_##type * p ); \
 LINALG_EXPORT cla##V##dim##type##_t cla##V##dim##type##_scale( cla##V##dim##type##_t v, LINALG_DATA_TYPE_##type s ); \
 LINALG_EXPORT cla##V##dim##type##_t cla##V##dim##type##_add( cla##V##dim##type##_t a, cla##V##dim##type##_t b ); \
 LINALG_EXPORT cla##V##dim##type##_t cla##V##dim##type##_sub( cla##V##dim##type##_t a, cla##V##dim##type##_t b ); \
@@ -45,6 +46,7 @@ typedef struct cla##M##dim##type##_t { \
 } cla##M##dim##type##_t; \
 LINALG_EXPORT cla##M##dim##type##_t cla##M##dim##type##_id( void ); \
 LINALG_EXPORT cla##M##dim##type##_t cla##M##dim##type##_map( LINALG_DATA_TYPE_##type * p ); \
+LINALG_EXPORT void cla##M##dim##type##_rmap( cla##M##dim##type##_t m, LINALG_DATA_TYPE_##type * p ); \
 LINALG_EXPORT cla##M##dim##type##_t cla##M##dim##type##_scale( cla##M##dim##type##_t v, LINALG_DATA_TYPE_##type s ); \
 LINALG_EXPORT cla##M##dim##type##_t cla##M##dim##type##_add( cla##M##dim##type##_t a, cla##M##dim##type##_t b ); \
 LINALG_EXPORT cla##M##dim##type##_t cla##M##dim##type##_sub( cla##M##dim##type##_t a, cla##M##dim##type##_t b ); \
