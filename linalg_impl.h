@@ -1,12 +1,19 @@
 #pragma once
 
 #include <math.h>
-#include <lapacke.h>
 
+#ifndef LINALG_NO_LAPACKE
+#include <lapacke.h>
 #define LINALG_LAPACKE_EIGH_d LAPACKE_dsyevd
 #define LINALG_LAPACKE_EIGH_cd LAPACKE_zheevd
 #define LINALG_LAPACKE_SVD_d LAPACKE_dgesvd
 #define LINALG_LAPACKE_SVD_cd LAPACKE_zgesvd
+#else // LINALG_NO_LAPACKE
+#define LINALG_LAPACKE_EIGH_d( ... ) {}
+#define LINALG_LAPACKE_EIGH_cd( ... ) {}
+#define LINALG_LAPACKE_SVD_d( ... ) {}
+#define LINALG_LAPACKE_SVD_cd( ... ) {}
+#endif // LINALG_NO_LAPACKE
 
 #define LINALG_VEC_IMPL( dim, type ) \
 LINALG_EXPORT cla##V##dim##type##_t cla##V##dim##type##_map( LINALG_DATA_TYPE_##type* p ) { \
