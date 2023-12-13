@@ -9,10 +9,10 @@
 #define LINALG_LAPACKE_SVD_d LAPACKE_dgesvd
 #define LINALG_LAPACKE_SVD_cd LAPACKE_zgesvd
 #else // LINALG_NO_LAPACKE
-#define LINALG_LAPACKE_EIGH_d( ... ) {}
-#define LINALG_LAPACKE_EIGH_cd( ... ) {}
-#define LINALG_LAPACKE_SVD_d( ... ) {}
-#define LINALG_LAPACKE_SVD_cd( ... ) {}
+#define LINALG_LAPACKE_EIGH_d( ... ) { (void)H; (void)pU; }
+#define LINALG_LAPACKE_EIGH_cd( ... ) { (void)H; (void)pU; }
+#define LINALG_LAPACKE_SVD_d( ... ) { (void)superb; (void)H; (void)pU; (void)pVT; }
+#define LINALG_LAPACKE_SVD_cd( ... ) { (void)superb; (void)H; (void)pU; (void)pVT;  }
 #endif // LINALG_NO_LAPACKE
 
 #define LINALG_VEC_IMPL( dim, type ) \
@@ -164,19 +164,20 @@ LINALG_EXPORT cla##V##dim##type##_t cla##M##dim##type##_vecmat( cla##V##dim##typ
     return cla##M##dim##type##_matvec( cla##M##dim##type##_transpose(a), v ); \
 } \
 LINALG_EXPORT cla##V##dim##d_t cla##M##dim##type##_eigvalsh( cla##M##dim##type##_t H ) { \
-    cla##V##dim##d_t val; \
-    LINALG_LAPACKE_EIGH_##type ( LAPACK_ROW_MAJOR, 'N', 'U', dim, H.m[0], dim, val.v ); \
+    cla##V##dim##d_t val = {0}; \
+    cla##M##dim##type##_t* pU = &H; \
+    LINALG_LAPACKE_EIGH_##type ( LAPACK_ROW_MAJOR, 'N', 'U', dim, pU->m[0], dim, val.v ); \
     return val; \
 } \
 LINALG_EXPORT cla##V##dim##d_t cla##M##dim##type##_eigh( cla##M##dim##type##_t H, cla##M##dim##type##_t* pU ) { \
-    cla##V##dim##d_t val; \
+    cla##V##dim##d_t val = {0}; \
     *pU = H; \
     LINALG_LAPACKE_EIGH_##type ( LAPACK_ROW_MAJOR, 'V', 'U', dim, pU->m[0], dim, val.v ); \
     return val; \
 } \
 LINALG_EXPORT cla##V##dim##d_t cla##M##dim##type##_svd( cla##M##dim##type##_t H, cla##M##dim##type##_t* pU, cla##M##dim##type##_t* pVT ) { \
-    cla##V##dim##d_t val; \
-    double superb[dim]; \
+    cla##V##dim##d_t val = {0}; \
+    double superb[dim] = {0}; \
     LINALG_LAPACKE_SVD_##type ( LAPACK_ROW_MAJOR, 'A', 'A', dim, dim, H.m[0], dim, val.v, pU->m[0], dim, pVT->m[0], dim, superb ); \
     return val; \
 }
