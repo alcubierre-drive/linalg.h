@@ -15,6 +15,9 @@
 #define LINALG_LAPACKE_SVD_cd( ... ) { (void)superb; (void)H; (void)pU; (void)pVT;  }
 #endif // LINALG_NO_LAPACKE
 
+#define LINALG_LAPACKE_EIGH_i( ... ) { (void)H; (void)pU; }
+#define LINALG_LAPACKE_SVD_i( ... ) { (void)superb; (void)H; (void)pU; (void)pVT; }
+
 #define LINALG_VEC_IMPL( dim, type ) \
 LINALG_EXPORT cla##V##dim##type##_t cla##V##dim##type##_map( LINALG_DATA_TYPE_##type* p ) { \
     cla##V##dim##type##_t result; \

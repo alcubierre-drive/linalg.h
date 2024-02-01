@@ -5,6 +5,7 @@ typedef _Complex double complex128_t;
 
 #define LINALG_DATA_TYPE_d double
 #define LINALG_DATA_TYPE_cd complex128_t
+#define LINALG_DATA_TYPE_i int
 
 #ifndef LINALG_EXPORT
 #define LINALG_EXPORT 
@@ -19,12 +20,14 @@ typedef _Complex double complex128_t;
 
 #define LINALG_TYPES( dim ) \
     LINALG_VEC_TYPES( dim, d ) \
-    LINALG_VEC_TYPES( dim, cd )
+    LINALG_VEC_TYPES( dim, cd ) \
+    LINALG_VEC_TYPES( dim, i )
 
 #define LINALG_IMPL( dim ) \
     LINALG_TYPES( dim ) \
     LINALG_VEC_IMPL( dim, d ) \
-    LINALG_VEC_IMPL( dim, cd )
+    LINALG_VEC_IMPL( dim, cd ) \
+    LINALG_VEC_IMPL( dim, i )
 
 #define LINALG_VEC_TYPES( dim, type ) \
 typedef struct cla##V##dim##type##_t { \
